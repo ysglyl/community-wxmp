@@ -1,0 +1,44 @@
+/* pages/login/login.wxss */
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.view-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.view-title {
+  font-size: 14px;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  color: #020e0f;
+  text-align: center;
+}
+
+.view-content {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+}
+
+.btn-auth {
+  margin-top: 60rpx;
+  height: 100rpx;
+  font-size: 18px;
+}
