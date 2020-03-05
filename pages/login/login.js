@@ -1,4 +1,5 @@
 // pages/login/login.js
+const app = getApp();
 Page({
 
   /**
@@ -6,67 +7,73 @@ Page({
    */
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    avatarUrl:"/assets/images/default-avatar.png"
+    flagLogin: wx.getStorageSync("open-id") != null,
+    avatarUrl: "/assets/images/default-avatar.png"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    //查看是否授权
-    wx.getSetting({
-      success: function(res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.login({
-            success:function(res){
-              wx.request({
-                url: 'http://10.10.10.79:8899/user/wxLogin',
-                data: {
-                  code:res.code
-                },
-                success:function(response) {
-                  wx.navigateTo({
-                    url: '/pages/index/index',
-                  })
-                  console.log(response.data)
-                }
-              })
-            }
-          })
-        
+    const openId = wx.getStorageSync("open-id");
+    if(openId == null){
+      //查看是否授权
+      wx.getSetting({
+        success: function (res) {
+          if (res.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              success: function (response) {
+                this.login(response)
+              }
+            })
+          }
         }
-      }
-    })
+      });
+    } else {
+      this.getCurrentUser(openId);
+    }
   },
 
   bindGetUserInfo: function(res) {
     if (res.detail.userInfo) {
-      //用户按了允许授权按钮
-      var $that = this;
-      // 获取到用户的信息了，打印到控制台上看下
-      console.log("用户的信息如下：");
-      console.log(res.detail.userInfo);
-      //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
-      $that.setData({
-        isHide: false
-      });
+      this.login(res.detail);
     } else {
       //用户按了拒绝按钮
       wx.showModal({
         title: '警告',
-        content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
+        content: '您拒绝了授权，将无法使用小程序!!!',
         showCancel: false,
-        confirmText: '返回授权',
-        success: function(res) {
-          // 用户没有授权成功，不需要改变 isHide 的值
-          if (res.confirm) {
-            console.log('用户点击了“返回授权”');
-          }
-        }
+        confirmText: '返回'
       });
     }
   },
 
+  login: function(userData) {
+    console.log(userData);
+    wx.login({
+      success: function(res) {
+        wx.request({
+          url: 'http://10.10.10.79:8899/user/wxLogin',
+          data: {
+            code: res.code,
+            signature:userData.signature,
+            rawData:userData.rawData,
+            encryptedData: userData.encryptedData
+          },
+          success: function(response) {
+            wx.setStorageSync("open-id", response.data.data.openId);;
+            app.globalData.userInfo = response.data.data
+            wx.redirectTo({
+              url: '/pages/index/index',
+            });
+          }
+        })
+      }
+    })
+  },
+  getCurrentUser:function(openId){
+    
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
