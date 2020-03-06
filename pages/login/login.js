@@ -1,4 +1,7 @@
 // pages/login/login.js
+import {
+  serverUrl
+} from "../../utils/constant.js";
 const app = getApp();
 Page({
 
@@ -7,7 +10,6 @@ Page({
    */
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    flagLogin: wx.getStorageSync("open-id") != null,
     avatarUrl: "/assets/images/default-avatar.png"
   },
 
@@ -15,22 +17,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const openId = wx.getStorageSync("open-id");
-    if(openId == null){
+    const openid = wx.getStorageSync("open-id");
+    const $this = this;
+    if (openid == null || openid == '') {
       //查看是否授权
       wx.getSetting({
-        success: function (res) {
+        success: function(res) {
           if (res.authSetting['scope.userInfo']) {
             wx.getUserInfo({
-              success: function (response) {
-                this.login(response)
+              lang: 'zh_CN',
+              success: function(response) {
+                $this.login(response)
               }
             })
           }
         }
       });
     } else {
-      this.getCurrentUser(openId);
+      $this.getCurrentUser(openid);
     }
   },
 
@@ -50,29 +54,68 @@ Page({
 
   login: function(userData) {
     console.log(userData);
+    const $this = this;
+
     wx.login({
       success: function(res) {
+        wx.showLoading({
+          title: '登录中...',
+        });
         wx.request({
-          url: 'http://10.10.10.79:8899/user/wxLogin',
+          url: serverUrl + 'user/wxLogin',
           data: {
             code: res.code,
-            signature:userData.signature,
-            rawData:userData.rawData,
-            encryptedData: userData.encryptedData
+            signature: userData.signature,
+            rawData: userData.rawData,
+            encryptedData: userData.encryptedData,
+            iv: userData.iv
           },
           success: function(response) {
-            wx.setStorageSync("open-id", response.data.data.openId);;
-            app.globalData.userInfo = response.data.data
-            wx.redirectTo({
-              url: '/pages/index/index',
-            });
+            if (response.data.code == 200) {
+              wx.setStorageSync("open-id", response.data.data.openId);;
+              app.globalData.userInfo = response.data.data;
+              $this.avatarUrl = response.data.data.avatarUrl;
+              wx.redirectTo({
+                url: '/pages/index/index',
+              });
+            } else {
+              wx.showToast({
+                title: response.data.msg,
+                icon: 'none'
+              })
+            }
+          },
+          complete: function() {
+            wx.hideLoading();
           }
         })
       }
     })
   },
-  getCurrentUser:function(openId){
-    
+  getCurrentUser: function(openid) {
+    const $this = this;
+    wx.showLoading({
+      title: '登录中...'
+    })
+    wx.request({
+      url: serverUrl + "user/getByOpenid",
+      data: {
+        openid
+      },
+      success: function(response) {
+        if (response.data.code == 200) {
+          wx.setStorageSync("open-id", response.data.data.openId);
+          app.globalData.userInfo = response.data.data;
+          $this.avatarUrl = response.data.data.avatarUrl;
+          wx.redirectTo({
+            url: '/pages/index/index',
+          });
+        }
+      },
+      complete: function() {
+        wx.hideLoading();
+      }
+    })
   },
 
   /**

@@ -1,2 +1,31 @@
 <!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
+<view class="container">
+  <view class="tabContent">
+    <swiper bindchange="changeTab" current="{{currentTab}}">
+      <swiper-item>
+        <view>xxx</view>
+      </swiper-item>
+      <swiper-item>
+        <view>
+          <view class="activityContainer">
+            <view class="typeTabTitle">
+              <view wx:for="{{typeTabTitles}}" wx:key="*this" data-id="{{index}}" bindtap="switchTypeTab" class="{{currentType == index ? 'selected':'unselected'}}">{{item}}</view>
+            </view>
+            <view class="typeTabContent">
+              <swiper bindchange="changeTypeTab" current="{{currentType}}">
+                <swiper-item wx:for="{{typeTabTitles}}" wx:key="*this">
+                  <view>{{item}}sss</view>
+                </swiper-item>
+              </swiper>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+  <view class="tabTitle">
+    <view wx:for="{{tabTitles}}" wx:key="*this" data-id="{{index}}" bindtap="switchTab" class="{{currentTab == index ? 'selected': 'unselected'}}">
+      {{item}}
+    </view>
+  </view>
+</view>
