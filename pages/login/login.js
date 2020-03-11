@@ -1,7 +1,7 @@
 // pages/login/login.js
 import {
-  serverUrl
-} from "../../utils/constant.js";
+  post
+} from '../../utils/util.js';
 const app = getApp();
 Page({
 
@@ -53,16 +53,16 @@ Page({
   },
 
   login: function(userData) {
-    console.log(userData);
     const $this = this;
 
     wx.login({
       success: function(res) {
-        wx.showLoading({
-          title: '登录中...',
-        });
-        wx.request({
-          url: serverUrl + 'user/wxLogin',
+        post({
+          loadingTitle: "登录中...",
+          url: 'user/wxLogin',
+          header:{
+            "content-type": 'application/x-www-form-urlencoded'
+          },
           data: {
             code: res.code,
             signature: userData.signature,
@@ -71,22 +71,19 @@ Page({
             iv: userData.iv
           },
           success: function(response) {
-            if (response.data.code == 200) {
-              wx.setStorageSync("open-id", response.data.data.openId);;
-              app.globalData.userInfo = response.data.data;
-              $this.avatarUrl = response.data.data.avatarUrl;
+            if (response.code == 200) {
+              wx.setStorageSync("open-id", response.data.openId);;
+              app.globalData.userInfo = response.data;
+              $this.avatarUrl = response.data.avatarUrl;
               wx.redirectTo({
                 url: '/pages/index/index',
               });
             } else {
               wx.showToast({
-                title: response.data.msg,
+                title: response.msg,
                 icon: 'none'
               })
             }
-          },
-          complete: function() {
-            wx.hideLoading();
           }
         })
       }
@@ -94,26 +91,24 @@ Page({
   },
   getCurrentUser: function(openid) {
     const $this = this;
-    wx.showLoading({
-      title: '登录中...'
-    })
-    wx.request({
-      url: serverUrl + "user/getByOpenid",
+    post({
+      loadingTitle: '登录中...',
+      url: "user/getByOpenid",
+      header: {
+        "content-type": 'application/x-www-form-urlencoded'
+      },
       data: {
         openid
       },
       success: function(response) {
-        if (response.data.code == 200) {
-          wx.setStorageSync("open-id", response.data.data.openId);
-          app.globalData.userInfo = response.data.data;
-          $this.avatarUrl = response.data.data.avatarUrl;
+        if (response.code == 200) {
+          wx.setStorageSync("open-id", response.data.openId);
+          app.globalData.userInfo = response.data;
+          $this.avatarUrl = response.data.avatarUrl;
           wx.redirectTo({
             url: '/pages/index/index',
           });
         }
-      },
-      complete: function() {
-        wx.hideLoading();
       }
     })
   },

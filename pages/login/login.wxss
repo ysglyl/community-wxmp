@@ -21,6 +21,7 @@
   height: 128rpx;
   margin: 20rpx;
   border-radius: 50%;
+  border: 1px solid #f3f3f3;
 }
 
 .view-title {

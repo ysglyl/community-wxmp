@@ -1,29 +1,72 @@
 <!--pages/index/index.wxml-->
 <view class="container">
-  <view class="tabContent">
-    <swiper bindchange="changeTab" current="{{currentTab}}">
+  <view class="tab-content">
+    <swiper bindchange="changeTab" current="{{currentTab}}" style="height:{{windowHeight}}px;">
       <swiper-item>
-        <view>xxx</view>
-      </swiper-item>
-      <swiper-item>
-        <view>
-          <view class="activityContainer">
-            <view class="typeTabTitle">
-              <view wx:for="{{typeTabTitles}}" wx:key="*this" data-id="{{index}}" bindtap="switchTypeTab" class="{{currentType == index ? 'selected':'unselected'}}">{{item}}</view>
+        <scroll-view scroll-y="true" style="height: {{windowHeight - 40}}px;" lower-threshold="30" bindscrolltolower="loadMoreCommunity">
+          <view wx:for="{{communityList}}" wx:key="id" class="community-container">
+            <view class="community-base">
+              <image src="{{item.avatar}}" class="community-avatar"></image>
+              <view class="community-info">
+                <text class="name">{{item.name}}</text>
+                <view class="info">
+                  <text class="type">{{item.type == 1 ? "家园":(item.type == 2 ? "团体" : "社区")}}</text>
+                  <text class="member-count">{{item.memberCount}}人</text>
+                  <text class="cert-rate">{{item.certRate}}%</text>
+                </view>
+              </view>
+              <view class="communiy-operate">
+                <view class="community-join">加入</view>
+              </view>
             </view>
-            <view class="typeTabContent">
-              <swiper bindchange="changeTypeTab" current="{{currentType}}">
-                <swiper-item wx:for="{{typeTabTitles}}" wx:key="*this">
-                  <view>{{item}}sss</view>
-                </swiper-item>
-              </swiper>
+            <view class="community-desc">
+              <text>{{item.description}}</text>
             </view>
           </view>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <view class="activity-type-container">
+          <view wx:for="{{activityType}}" wx:key="*this" data-id="{{index}}" bindtap="switchType" class="activity-type {{currentType == index ? 'selected':''}}">{{item}}</view>
+        </view>
+        <scroll-view scroll-y="true" style="height: {{windowHeight - 40}}px;" lower-threshold="100" bindscrolltolower="loadMoreActivity">
+          <view wx:for="{{activityList}}" wx:key="id" wx:for-item="activity" class="activity-container">
+            <view class="activity-base">
+              <image src="{{activity.avatar}}" class="activity-avatar"></image>
+              <view class="activity-info">
+                <text class="name">{{activity.name}}</text>
+                <view class="info">
+                  <text class="type">{{activityType[activity.type]}}</text>
+                  <text class="permit-deadline">{{activity.permitDeadline}}</text>
+                </view>
+                <view class="community">
+                  <text>{{activity.communityId}}</text>
+                </view>
+              </view>
+              <view class="activity-status">
+                {{activity.status}}
+              </view>
+            </view>
+            <view class="activity-desc">
+              <text>{{activity.description}}</text>
+            </view>
+          </view>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <view class="my-setting-item">
+          创建社区
+        </view>
+        <view class="my-setting-item">
+          发起新活动
+        </view>
+        <view class="my-setting-item">
+          历史活动
         </view>
       </swiper-item>
     </swiper>
   </view>
-  <view class="tabTitle">
+  <view class="tab-title">
     <view wx:for="{{tabTitles}}" wx:key="*this" data-id="{{index}}" bindtap="switchTab" class="{{currentTab == index ? 'selected': 'unselected'}}">
       {{item}}
     </view>

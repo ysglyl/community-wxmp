@@ -1,19 +1,40 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+export const post = function(props){
+  wx.showLoading({
+    title: props.loadingTitle || '加载中...',
+  })
+  wx.request({
+    url: "http://10.10.10.82:8899/" + props.url,
+    method: 'POST',
+    header:{...props.header},
+    data: props.data,
+    success: function (res) {
+     props.success(res.data);
+    },
+    complete: function () {
+      wx.hideLoading();
+    }
+  })
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+export const max = function(list) {
+  var max = 0;
+  for(var data of list){ 
+    if(data.rowId > max){
+      max = data.rowId;
+    }
+  }
+  return max;
 }
 
-module.exports = {
-  formatTime: formatTime
+export const min = function(list) {
+  var min = 0;
+  for (var data of list) {
+    if(min === 0) {
+      min = data.rowId;
+    }
+    if (data.rowId < min) {
+      min = data.rowId;
+    }
+  }
+  return min;
 }

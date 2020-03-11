@@ -1,7 +1,10 @@
 {
   "pages": [
     "pages/login/login",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/history/history",
+    "pages/community/community",
+    "pages/activity/activity"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -9,6 +12,5 @@
     "navigationBarTitleText": "和睦邻里",
     "navigationBarTextStyle": "black"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
