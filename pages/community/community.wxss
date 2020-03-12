@@ -1,1 +1,53 @@
 /* pages/community/community.wxss */
+
+.container {
+  padding: 0;
+}
+
+.community-avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.community-avatar {
+  width: 64px;
+  height: 64px;
+  border: 1px solid #f9f9f9;
+  border-radius: 50%;
+}
+
+.input-container {
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  margin: 5px 10px 0;
+  padding: 5px 10px;
+}
+
+.input-container > .name {
+  height: 20px;
+}
+
+.input-container > .address {
+  height: 20px;
+}
+
+.input-container.type {
+  height: 20px;
+  line-height: 20px;
+}
+
+.input-container.region {
+  height: 20px;
+  line-height: 20px;
+}
+
+.community-desc {
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  height: 60px;
+}
+
+.btn-submit {
+  margin: 5px 10px 0;
+}

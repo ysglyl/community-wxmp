@@ -135,6 +135,21 @@ Page({
       this.loadActivity(1);
     }
   },
+  gotoCommunityCreate:function(){
+    wx.navigateTo({
+      url: '/pages/community/community',
+    })
+  },
+  gotoActivityCreate:function(){
+    wx.navigateTo({
+      url: '/pages/activity/activity',
+    })
+  },
+  gotoActivityHistory:function(){
+    wx.navigateTo({
+      url: '/pages/history/history',
+    });
+  },
   loadCommunity: function(mode) {
     const $this = this;
     const pageSize = this.data.pageSize;

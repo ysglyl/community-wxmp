@@ -54,13 +54,13 @@
         </scroll-view>
       </swiper-item>
       <swiper-item>
-        <view class="my-setting-item">
+        <view class="my-setting-item" bindtap="gotoCommunityCreate">
           创建社区
         </view>
-        <view class="my-setting-item">
+        <view class="my-setting-item" bindtap="gotoActivityCreate">
           发起新活动
         </view>
-        <view class="my-setting-item">
+        <view class="my-setting-item" bindtap="gotoActivityHistory">
           历史活动
         </view>
       </swiper-item>

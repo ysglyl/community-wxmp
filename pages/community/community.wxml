@@ -1,2 +1,28 @@
 <!--pages/community/community.wxml-->
-<text>pages/community/community.wxml</text>
+<view class="container">
+  <view class="community-avatar-container">
+    <image src="{{communityAvatar}}" bindtap="bindSelectAvatar" class="community-avatar"></image>
+  </view>
+  <form bindsubmit="bindFormSubmit">
+    <view class="input-container">
+      <input name="name" placeholder="名称" class="name" />
+    </view>
+    <picker range="{{communityType}}" bindchange="bindSelectType" value="{{selectedType}}">
+      <view class="input-container type">
+        类型：{{communityType[selectedType]}}
+      </view>
+    </picker>
+    <picker wx:if="{{selectedType === 0}}" mode="region" bindchange="bindSelectRegion" value="selectedRegion">
+      <view class="input-container region">
+        {{selectedRegion[0]}} {{selectedRegion[1]}} {{selectedRegion[2]}}
+      </view>
+    </picker>
+    <view wx:if="{{selectedType === 0}}" class="input-container">
+      <input name="address" placeholder="详细地址" class="address" />
+    </view>
+    <view class="input-container">
+      <textarea placeholder="描述" name="description" />
+    </view>
+    <button type="primary" form-type="submit" class="btn-submit">提交</button>
+  </form>
+</view>
