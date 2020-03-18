@@ -1,4 +1,4 @@
-// pages/history/history.js
+// pages/activity/topic/create/index.js
 Page({
 
   /**

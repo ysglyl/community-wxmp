@@ -135,19 +135,44 @@ Page({
       this.loadActivity(1);
     }
   },
-  gotoCommunityCreate:function(){
+  gotoCreateCommunity: function() {
     wx.navigateTo({
-      url: '/pages/community/community',
+      url: '/pages/community/create/index',
     })
   },
-  gotoActivityCreate:function(){
+  gotoCreateNotice: function() {
     wx.navigateTo({
-      url: '/pages/activity/activity',
+      url: '/pages/activity/notice/create/index',
     })
   },
-  gotoActivityHistory:function(){
+  gotoCreateTopic: function() {
     wx.navigateTo({
-      url: '/pages/history/history',
+      url: '/pages/activity/topic/create/index',
+    })
+  },
+  gotoCreateVote: function() {
+    wx.navigateTo({
+      url: '/pages/activity/vote/create/index',
+    })
+  },
+  gotoCreateStatistics: function() {
+    wx.navigateTo({
+      url: '/pages/activity/statistics/create/index',
+    })
+  },
+  gotoCreatePurchase: function() {
+    wx.navigateTo({
+      url: '/pages/activity/purchase/create/index',
+    })
+  },
+  gotoCreateDemand: function() {
+    wx.navigateTo({
+      url: '/pages/activity/demand/create/index',
+    })
+  },
+  gotoActivityHistory: function() {
+    wx.navigateTo({
+      url: '/pages/activity/history/history',
     });
   },
   loadCommunity: function(mode) {
@@ -161,27 +186,25 @@ Page({
         pageSize
       },
       success: function(res) {
-        if (res.code === 200) {
-          if (res.data.records.length > 0) {
-            const newData = {}
-            if (mode === 0) { //刷新
-              if ($this.data.communityNewestId == 0) {
-                newData.communityList = [...res.data.records, ...$this.data.communityList];
-                newData.communityLastId = min(res.data.records)
-              } else {
-                newData.communityList = [...res.data.records.reverse(), ...$this.data.communityList]
-              }
-              newData.communityNewestId = max(res.data.records);
+        if (res.records.length > 0) {
+          const newData = {}
+          if (mode === 0) { //刷新
+            if ($this.data.communityNewestId == 0) {
+              newData.communityList = [...res.records, ...$this.data.communityList];
+              newData.communityLastId = min(res.records)
             } else {
-              newData.communityList = [...$this.data.communityList, ...res.data.records]
-              newData.communityLastId = min(res.data.records);
+              newData.communityList = [...res.records.reverse(), ...$this.data.communityList]
             }
-            $this.setData(newData);
-          } else if (mode === 1) {
-            $this.setData({
-              communityLoadingAll: true
-            })
+            newData.communityNewestId = max(res.records);
+          } else {
+            newData.communityList = [...$this.data.communityList, ...res.records]
+            newData.communityLastId = min(res.records);
           }
+          $this.setData(newData);
+        } else if (mode === 1) {
+          $this.setData({
+            communityLoadingAll: true
+          })
         }
       }
     })
@@ -199,27 +222,25 @@ Page({
         pageSize
       },
       success: function(res) {
-        if (res.code === 200) {
-          if (res.data.records.length > 0) {
-            const newData = {}
-            if (mode === 0) { //刷新
-              if ($this.data.activityNewestId === 0) {
-                newData.activityList = [...res.data.records, ...$this.data.activityList];
-                newData.activityLastId = min(res.data.records)
-              } else {
-                newData.activityList = [...res.data.records.reverse(), ...$this.data.activityList]
-              }
-              newData.activityNewestId = max(res.data.records);
+        if (res.records.length > 0) {
+          const newData = {}
+          if (mode === 0) { //刷新
+            if ($this.data.activityNewestId === 0) {
+              newData.activityList = [...res.records, ...$this.data.activityList];
+              newData.activityLastId = min(res.records)
             } else {
-              newData.activityList = [...$this.data.activityList, ...res.data.records]
-              newData.activityLastId = min(res.data.records);
+              newData.activityList = [...res.records.reverse(), ...$this.data.activityList]
             }
-            $this.setData(newData);
-          } else if (mode === 1) {
-            $this.setData({
-              activityLoadingAll: true
-            })
+            newData.activityNewestId = max(res.records);
+          } else {
+            newData.activityList = [...$this.data.activityList, ...res.records]
+            newData.activityLastId = min(res.records);
           }
+          $this.setData(newData);
+        } else if (mode === 1) {
+          $this.setData({
+            activityLoadingAll: true
+          })
         }
       }
     })

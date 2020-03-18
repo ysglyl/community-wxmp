@@ -1,4 +1,4 @@
-// pages/activity/activity.js
+// pages/activity/vote/create/index.js
 Page({
 
   /**

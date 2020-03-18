@@ -2,9 +2,13 @@
   "pages": [
     "pages/login/login",
     "pages/index/index",
-    "pages/history/history",
-    "pages/community/community",
-    "pages/activity/activity"
+    "pages/community/create/index",
+    "pages/activity/history/index",
+    "pages/activity/notice/create/index",
+    "pages/activity/purchase/create/index",
+    "pages/activity/statistics/create/index",
+    "pages/activity/topic/create/index",
+    "pages/activity/vote/create/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

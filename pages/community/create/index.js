@@ -1,6 +1,6 @@
 import {
   post
-} from '../../utils/util.js';
+} from '../../../utils/util.js';
 Page({
 
   /**
@@ -10,7 +10,7 @@ Page({
     communityAvatar: '/assets/images/default-avatar.png',
     communityType: ['社区', '家园', '团体'],
     selectedType: 0,
-    selectedRegion:['江苏省','南京市','浦口区']
+    selectedRegion: ['江苏省', '南京市', '浦口区']
   },
 
   /**
@@ -76,14 +76,12 @@ Page({
         ...e.detail.value,
         avatar: $this.data.communityAvatar,
         type: $this.data.selectedType,
-        province:$this.data.selectedRegion[0],
-        city:$this.data.selectedRegion[1],
-        county:$this.data.selectedRegion[2]
+        province: $this.data.selectedRegion[0],
+        city: $this.data.selectedRegion[1],
+        county: $this.data.selectedRegion[2]
       },
       success: function(res) {
-        if(res.code === 200){
-          wx.navigateBack({})
-        }
+        wx.navigateBack({})
       }
     })
   },
@@ -102,9 +100,9 @@ Page({
       selectedType: e.detail.value
     })
   },
-  bindSelectRegion:function(e){
+  bindSelectRegion: function(e) {
     this.setData({
-      selectedRegion:e.detail.value
+      selectedRegion: e.detail.value
     })
   }
 })

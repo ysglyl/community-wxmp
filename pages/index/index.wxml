@@ -37,7 +37,7 @@
                 <text class="name">{{activity.name}}</text>
                 <view class="info">
                   <text class="type">{{activityType[activity.type]}}</text>
-                  <text class="permit-deadline">{{activity.permitDeadline}}</text>
+                  <text class="create-time">{{activity.createTime}}</text>
                 </view>
                 <view class="community">
                   <text>{{activity.communityId}}</text>
@@ -54,11 +54,26 @@
         </scroll-view>
       </swiper-item>
       <swiper-item>
-        <view class="my-setting-item" bindtap="gotoCommunityCreate">
+        <view class="my-setting-item" bindtap="gotoCreateCommunity">
           创建社区
         </view>
-        <view class="my-setting-item" bindtap="gotoActivityCreate">
-          发起新活动
+        <view class="my-setting-item" bindtap="gotoCreateNotice">
+          发起公告
+        </view>
+        <view class="my-setting-item" bindtap="gotoCreateTopic">
+          发表话题
+        </view>
+        <view class="my-setting-item" bindtap="gotoCreateVote">
+          发起投票
+        </view>
+        <view class="my-setting-item" bindtap="gotoCreateStatistics">
+          发起统计
+        </view>
+        <view class="my-setting-item" bindtap="gotoCreatePurchase">
+          创建团购
+        </view>
+        <view class="my-setting-item" bindtap="gotoCreateDemand">
+          发布需求
         </view>
         <view class="my-setting-item" bindtap="gotoActivityHistory">
           历史活动

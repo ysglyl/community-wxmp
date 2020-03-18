@@ -1,0 +1,19 @@
+<!--pages/activity/notice/create/index.wxml-->
+<view class="container">
+   <form bindsubmit="bindFormSubmit">
+    <picker mode="multiSelector" range="{{[communityType,communitys[selectedCommunity[0]]]}}" range-key="name" bindchange="bindSelectCommunity" bindcolumnchange="bindChangeType" value="selectedCommunity">
+      <view class="input-container community">
+        社区：{{communitys[selectedCommunity[0]][selectedCommunity[1]].name || '请选择'}}
+      </view>
+    </picker>
+    <view class="input-container">
+      <textarea placeholder="描述" name="content" />
+    </view>
+    <picker mode="date" value="{{effectiveDate}}" bindchange="bindSelectEffectiveDate">
+      <view class="input-container effective-date">
+        生效日期：{{effectiveDate}}
+      </view>
+    </picker>
+    <button type="primary" form-type="submit" class="btn-submit">提交</button>
+  </form>
+</view>

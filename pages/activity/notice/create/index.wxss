@@ -1,0 +1,24 @@
+/* pages/activity/notice/create/index.wxss */
+.container {
+  padding: 0;
+}
+
+.input-container {
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  margin: 5px 10px 0;
+  padding: 5px 10px;
+}
+
+.input-container .community {
+
+}
+
+
+.input-container .effective-date {
+  
+}
+
+.btn-submit {
+  margin: 5px 10px 0;
+}

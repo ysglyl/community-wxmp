@@ -60,7 +60,7 @@ Page({
         post({
           loadingTitle: "登录中...",
           url: 'user/wxLogin',
-          header:{
+          header: {
             "content-type": 'application/x-www-form-urlencoded'
           },
           data: {
@@ -71,19 +71,12 @@ Page({
             iv: userData.iv
           },
           success: function(response) {
-            if (response.code == 200) {
-              wx.setStorageSync("open-id", response.data.openId);;
-              app.globalData.userInfo = response.data;
-              $this.avatarUrl = response.data.avatarUrl;
-              wx.redirectTo({
-                url: '/pages/index/index',
-              });
-            } else {
-              wx.showToast({
-                title: response.msg,
-                icon: 'none'
-              })
-            }
+            wx.setStorageSync("open-id", response.openId);;
+            app.globalData.userInfo = response;
+            $this.avatarUrl = response.avatarUrl;
+            wx.redirectTo({
+              url: '/pages/index/index',
+            });
           }
         })
       }
@@ -101,14 +94,12 @@ Page({
         openid
       },
       success: function(response) {
-        if (response.code == 200) {
-          wx.setStorageSync("open-id", response.data.openId);
-          app.globalData.userInfo = response.data;
-          $this.avatarUrl = response.data.avatarUrl;
-          wx.redirectTo({
-            url: '/pages/index/index',
-          });
-        }
+        wx.setStorageSync("open-id", response.openId);
+        app.globalData.userInfo = response;
+        $this.avatarUrl = response.avatarUrl;
+        wx.redirectTo({
+          url: '/pages/index/index',
+        });
       }
     })
   },

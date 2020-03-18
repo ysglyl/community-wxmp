@@ -164,7 +164,7 @@
   color: #36ccf9;
 }
 
-.activity-info .permit-deadline {
+.activity-info .create-time {
   display: inline-block;
   margin-left: 10px;
 }
