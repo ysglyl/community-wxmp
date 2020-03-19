@@ -29,7 +29,7 @@
         <view class="activity-type-container">
           <view wx:for="{{activityType}}" wx:key="*this" data-id="{{index}}" bindtap="switchType" class="activity-type {{currentType == index ? 'selected':''}}">{{item}}</view>
         </view>
-        <scroll-view scroll-y="true" style="height: {{windowHeight - 40}}px;" lower-threshold="100" bindscrolltolower="loadMoreActivity">
+        <scroll-view scroll-y="true" style="height: {{windowHeight - 75}}px;" lower-threshold="30" bindscrolltolower="loadMoreActivity">
           <view wx:for="{{activityList}}" wx:key="id" wx:for-item="activity" class="activity-container">
             <view class="activity-base">
               <image src="{{activity.avatar}}" class="activity-avatar"></image>

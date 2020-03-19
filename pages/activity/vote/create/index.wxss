@@ -1,1 +1,20 @@
-/* pages/activity/vote/create/index.wxss */
+/* pages/activity/notice/create/index.wxss */
+
+.container {
+  padding: 0;
+}
+
+.input-container {
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  margin: 5px 10px 0;
+  padding: 5px 10px;
+}
+
+.input-container.item {
+  width: calc(100% - 100px);
+}
+
+.btn-submit {
+  margin: 5px 10px 0;
+}
