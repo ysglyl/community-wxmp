@@ -9,8 +9,17 @@
         社区：{{communitys[selectedCommunity[0]][selectedCommunity[1]].name || '请选择'}}
       </view>
     </picker>
-    <view class="input-container item">
-      <input placeholder="内容" name="content" />
+    <view wx:for="{{items}}" wx:key="index" class="input-container">
+      <view class="item">
+        <input placeholder="选项" name="content_{{index}}" />
+      </view>
+      <image src="/assets/images/delete.png" class="btn" bindtap="removeVoteItem" />
+    </view>
+    <view class="input-container">
+      <view class="item">
+        <input placeholder="选项" name="content_" />
+      </view>
+      <image src="/assets/images/add.png" class="btn" bindtap="addVoteItem" />
     </view>
     <picker mode="date" value="{{deadline}}" bindchange="bindSelectDeadline">
       <view class="input-container deadline">

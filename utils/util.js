@@ -3,7 +3,7 @@ export const post = function(props) {
     title: props.loadingTitle || '加载中...',
   })
   wx.request({
-    url: "http://10.10.10.89:8899/" + props.url,
+    url: "http://10.10.10.204:8899/" + props.url,
     method: 'POST',
     header: { ...props.header,
       openId: wx.getStorageSync("open-id")

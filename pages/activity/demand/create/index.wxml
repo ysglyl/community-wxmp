@@ -12,9 +12,9 @@
     <view class="input-container">
       <textarea placeholder="内容" name="content" />
     </view>
-    <picker mode="date" value="{{deadline}}" bindchange="bindSelectDeadline">
-      <view class="input-container deadline">
-        截止日期：{{deadline}}
+    <picker mode="date" value="{{permitDeadline}}" bindchange="bindSelectPermitDeadline">
+      <view class="input-container permit-deadline">
+        截止日期：{{permitDeadline}}
       </view>
     </picker>
     <button type="primary" form-type="submit" class="btn-submit">提交</button>

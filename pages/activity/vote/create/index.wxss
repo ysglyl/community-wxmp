@@ -9,10 +9,18 @@
   border-radius: 4px;
   margin: 5px 10px 0;
   padding: 5px 10px;
+  display: flex;
+  align-items: center;
 }
 
-.input-container.item {
-  width: calc(100% - 100px);
+.input-container > .item {
+  width: calc(100% - 40px);
+  display: inline-block;
+}
+
+.input-container > .btn {
+  width: 32px;
+  height: 32px;
 }
 
 .btn-submit {

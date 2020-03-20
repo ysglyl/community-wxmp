@@ -21,8 +21,7 @@ Page({
     }],
     communitys: [],
     selectedCommunity: [0, 0],
-    items: [0],
-    deadline: nowDate()
+    permitDeadline: nowDate()
   },
 
   /**
@@ -95,9 +94,9 @@ Page({
       selectedCommunity: e.detail.value
     })
   },
-  bindSelectDeadline: function(e) {
+  bindSelectPermitDeadline: function(e) {
     this.setData({
-      deadline: e.detail.value
+      permitDeadline: e.detail.value
     })
   },
   loadAllCommunity: function() {
@@ -121,23 +120,14 @@ Page({
       })
       return;
     }
-    const items = [];
-    Object.entries(e.detail.value).forEach(([k, v]) => {
-      if (k.startsWith("content_")) {
-        items.push({
-          content: v
-        })
-      }
-    });
     post({
       url: 'activity/insert',
       data: {
-        type: 3,
+        type: 6,
         communityId: community.rowId,
-        vote: {
-          title: e.detail.value['title'],
-          deadline: $this.data.deadline,
-          items
+        demand: {
+          ...e.detail.value,
+          permitDeadline: $this.data.permitDeadline
         }
       },
       success: function(res) {
@@ -145,25 +135,4 @@ Page({
       }
     })
   },
-  addVoteItem: function() {
-    const items = this.data.items;
-    items.push(0);
-    this.setData({
-      items
-    })
-  },
-  removeVoteItem: function() {
-    const items = this.data.items;
-    if (items.length === 1) {
-      wx.showToast({
-        title: '至少添加两个投票项',
-        icon: 'none'
-      })
-      return;
-    }
-    items.pop();
-    this.setData({
-      items
-    })
-  }
 })

@@ -105,7 +105,7 @@ Page({
   },
   bindFormSubmit: function(e) {
     const $this = this;
-    const community = this.data.communitys[this.data.selectedCommunity[0]][this.data.selectedCommunity[1]] == undefined
+    const community = this.data.communitys[this.data.selectedCommunity[0]][this.data.selectedCommunity[1]]
     if (community == undefined) {
       wx.showToast({
         title: '请选择社区',

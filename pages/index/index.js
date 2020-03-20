@@ -170,11 +170,6 @@ Page({
       url: '/pages/activity/demand/create/index',
     })
   },
-  gotoActivityHistory: function() {
-    wx.navigateTo({
-      url: '/pages/activity/history/history',
-    });
-  },
   loadCommunity: function(mode) {
     const $this = this;
     const pageSize = this.data.pageSize;
